@@ -1,0 +1,42 @@
+services: 
+
+  # Backend API
+  api:
+    build: ./backend/
+    command: npm start
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT} #host:docker
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      SERVER_PORT: ${SERVER_PORT} 
+      POSTGRES_URI: ${POSTGRES_URI}
+
+    volumes:
+      - ./backend/:/usr/src/atHomeServer
+
+  # Postgres
+  postgres:
+    # image: postgres
+    build: ./backend/postgres/
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports:
+      - "5434:5432" #host:docker
+
+  # Frontend - hier mach ich nicht weiter, weil hot reload für react-script in der Version 5.x.x aktuell nicht funktioniert
+  frontend:
+    build: ./frontend
+    container_name: frontend_c
+    ports:
+      - 3001:3000
+    volumes:
+      - ./frontend:/app
+      - ./app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true
+

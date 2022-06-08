@@ -1,0 +1,28 @@
+.title {
+    font-size: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.picture {
+    margin: 3rem;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+.picture img {
+    margin-right: auto;
+    margin-left: auto;
+    width: 10%;
+    /* background-color: blue; */
+  }
+
+.text {
+    margin: 2rem;
+    text-align: center;
+}
+
+
+

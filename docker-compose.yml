@@ -1,0 +1,65 @@
+version: '3'
+
+services: 
+  # Postgres
+  postgres:
+    # image: postgres
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./server/postgres/
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports:
+      - "5434:5432" #host:docker
+    volumes:
+      - ./server/postgres/athome-postgres-data:/var/lib/postgresql/data
+  
+# NGINX
+  nginx:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    depends_on:
+      - api
+      - client
+    restart: always
+    ports:
+      - '3050:80'
+
+  # API
+  api:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: './server'
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT} #host:docker
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      SERVER_PORT: ${SERVER_PORT} 
+      POSTGRES_URI: ${POSTGRES_URI}
+    volumes:
+      # - /app/node_modules
+      - ./server:/app
+
+  # Client
+  client:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./client
+    ports:
+      - 3000:3000
+    volumes:
+      # - /app/node_modules
+      - ./client:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
+      # - WDS_SOCKET_PORT=0
+    stdin_open: true
+    tty: true
+
+volumes:
+  atHome-postgres-data:

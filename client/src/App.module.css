@@ -1,0 +1,10 @@
+
+.picture {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.picture img {
+  width: 40%;
+}

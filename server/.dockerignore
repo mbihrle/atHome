@@ -1,0 +1,8 @@
+node_modules
+Dockerfile.dev
+.dockerignore
+.git
+.gitignore
+.env
+
+/postgres
