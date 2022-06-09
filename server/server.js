@@ -26,12 +26,12 @@ app.get('/', (req, res) => {
     res.send('API is running');
 });
 
-
 app.get('/api/finances/balances/children', (req, res) => {
     console.log('treffer');
     // res.json(balancesChildrenJson);
     db.select('*')
-        .from('balances_children')
+        // .from('balances_children')
+        .from('bank_accounts_children')
         .then((balances) => {
             console.log(balances);
             res.json(balances);

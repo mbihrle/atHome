@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
-import BalancesChildren from './screens/BalancesChildren/BalancesChildren';
+import BankAccountsChildren from './screens/BalancesChildren/BalancesChildren';
 import DummyPage from './screens/DummyPage/DummyPage';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,7 +18,7 @@ root.render(
                 <Route path='/dummy' element={<DummyPage />} />
                 <Route
                     path='/finances/balance-children'
-                    element={<BalancesChildren />}
+                    element={<BankAccountsChildren />}
                 />
             </Routes>
         </BrowserRouter>
