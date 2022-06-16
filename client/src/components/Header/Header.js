@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import styles from './Navigation.module.css';
+import styles from './Header.module.css';
 
-function Navigation() {
+function Header() {
     return (
-        <>
+        <header>
             <Navbar
                 bg='light'
                 variant='light'
@@ -14,7 +14,7 @@ function Navigation() {
                 <Container>
                     <Navbar.Brand href='/'>Home</Navbar.Brand>
                     <Nav className='me-auto'>
-                    <NavDropdown
+                        <NavDropdown
                             title='Finanzen'
                             id='collasible-nav-dropdown'
                         >
@@ -24,8 +24,14 @@ function Navigation() {
                             <NavDropdown.Item href='/dummy'>
                                 Haushaltsbuch
                             </NavDropdown.Item>
-                            <NavDropdown.Item href='/finances/balance-children'>
+                            <NavDropdown.Item href='/finanzen/bankkonto-kinder'>
                                 Bankkonto Kinder
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='/finanzen/bankkonto-kinder/1'>
+                                Bankkonto Sebastian
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='/finanzen/bankkonto-kinder/2'>
+                                Bankkonto Benjamin
                             </NavDropdown.Item>
                         </NavDropdown>
 
@@ -42,20 +48,11 @@ function Navigation() {
                             <NavDropdown.Item href='/dummy'>
                                 Einkaufen
                             </NavDropdown.Item>
-                            <NavDropdown.Item href='/dummy'>
-                                ToDo
+                            <NavDropdown.Item href='/haushalt/todoliste'>
+                                Todo-Liste
                             </NavDropdown.Item>
-                        </NavDropdown>
-                       
-                        <NavDropdown
-                            title='Lernen'
-                            id='collasible-nav-dropdown'
-                        >
-                            <NavDropdown.Item href='/dummy'>
-                                Vokabeln
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href='/dummy'>
-                                Mathe
+                            <NavDropdown.Item href='/json-server-test'>
+                                Todo-Liste Json Server
                             </NavDropdown.Item>
                         </NavDropdown>
 
@@ -72,6 +69,32 @@ function Navigation() {
                         </NavDropdown>
 
                         <NavDropdown
+                            title='Lernen'
+                            id='collasible-nav-dropdown'
+                        >
+                            <NavDropdown.Item href='/dummy'>
+                                Vokabeln
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='/dummy'>
+                                Mathe
+                            </NavDropdown.Item>
+                        </NavDropdown>
+
+                        <NavDropdown
+                            title='Spielen'
+                            id='collasible-nav-dropdown'
+                        >
+                            <NavDropdown.Item href='/spiele/pokemon'>
+                                Pokemon - Test
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='/dummy'>
+                                Sonstiges
+                            </NavDropdown.Item>
+                        </NavDropdown>
+
+                        <Nav.Link href='#'>|</Nav.Link>
+
+                        <NavDropdown
                             title='LeGIDo'
                             id='collasible-nav-dropdown'
                         >
@@ -79,10 +102,8 @@ function Navigation() {
                                 Finanzbuch
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href='#Haushaltsbuch' disabled>
-                            Link
-                        </Nav.Link>
-                        
+                    </Nav>
+                    <Nav>
                         <NavDropdown title='Konto' id='collasible-nav-dropdown'>
                             <NavDropdown.Item href='/dummy'>
                                 Einloggen
@@ -100,8 +121,8 @@ function Navigation() {
                     </Nav>
                 </Container>
             </Navbar>
-        </>
+        </header>
     );
 }
 
-export default Navigation;
+export default Header;

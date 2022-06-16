@@ -1,0 +1,40 @@
+{
+  "todos": [
+    {
+      "userId": 1,
+      "id": 4,
+      "title": "aufräumen",
+      "completed": true
+    },
+    {
+      "userId": 1,
+      "title": "essen",
+      "completed": true,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "title": "schlafen",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "title": "aber nu",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "title": "noch eins",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "title": "test",
+      "completed": false,
+      "id": 9
+    }
+  ]
+}

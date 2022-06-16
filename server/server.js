@@ -26,23 +26,88 @@ app.get('/', (req, res) => {
     res.send('API is running');
 });
 
-app.get('/api/finances/balances/children', (req, res) => {
-    console.log('treffer');
-    // res.json(balancesChildrenJson);
+app.get('/api/finances/bank-accounts/children', (req, res) => {
+    console.log('tttt');
     db.select('*')
-        // .from('balances_children')
-        .from('bank_accounts_children')
-        .then((balances) => {
-            console.log(balances);
-            res.json(balances);
+        .from('v_bank_transactions_children')
+        .then((accounts) => {
+            // console.log(accounts);
+            res.json(accounts);
         });
 });
 
-app.get('/api/finances/balances/children/:id', (req, res) => {
-    const balance = balances.find((balance) => balance.id == req.params.id);
-    res.json(balance);
+app.get('/api/finances/bank-accounts/children/:id', (req, res) => {
+    const account_id = req.params.id;
+    console.log('account_id server: ', req.params.id);
+    db('bank_accounts_children');
+    db.select('*')
+        .from('v_bank_transactions_children')
+        .where('account_id', account_id)
+        .then((accounts) => {
+            // console.log(accounts);
+            res.json(accounts);
+        });
 });
-const PORT = process.env.SERVER_PORT || 5900;
+
+app.get('/api/todos', (req, res) => {
+    console.log('hello from todolist: select all todos');
+    db.select('*')
+        .from('todos')
+        .then((todos) => {
+            // console.log(accounts);
+            res.json(todos);
+        });
+});
+
+app.post('/api/todos', (req, res) => {
+    console.log('hello from todolist: put new todo');
+    const { title, date_create } = req.body;
+    console.log(req.body);
+    db.insert(req.body).into('todos').returning('*').then(res.send('success'));
+    // .then(function (data) {
+    //     res.send(data);
+    // });
+    // INSERT INTO table_name(column1, column2) VALUES(value_1, value_2)
+    // SELECT * FROM table WHERE id = inserted_row
+});
+
+app.patch('/api/todos/:id', async (req, res) => {
+    console.log('hello from todolist: update todo');
+    console.log('params: ', req.params);
+    const todo_id = req.params.id;
+    const changes = req.body;
+    console.log('todoid: ', todo_id);
+    try {
+        const count = await db('todos').where({ todo_id }).update(changes);
+        if (count) {
+            res.status(200).json({ updated: count });
+        } else {
+            res.status(404).json({ message: 'Record not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating todo', error: err });
+    }
+});
+
+app.delete('/api/todos/:id', async (req, res) => {
+    console.log('hello from todolist: delete todo');
+    const todo_id = req.params.id;
+    try {
+        const count = await db('todos').where({ todo_id }).delete();
+        if (count) {
+            res.status(200).json({ deleted: count });
+        } else {
+            res.status(404).json({ message: 'Record not found' });
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: 'Error deleting todo',
+            error: err,
+        });
+    }
+});
+
+const PORT = process.env.SERVER_PORT || 5000;
 
 app.listen(
     PORT,
