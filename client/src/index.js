@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Pokemon from './screens/Pokemon/Pokemon';
 import TodoList from './screens/TodoList/TodoList';
+import BankAccountChildDev from './screens/BankAccountChild/BankAccountChildDev';
 import JsonServerTest from './screens/JsonServerTest/JsonServerTest';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -35,7 +36,8 @@ root.render(
                 />
                 <Route path='/spiele/pokemon/' element={<Pokemon />} />
                 <Route path='/haushalt/todoliste/' element={<TodoList />} />
-                <Route path='json-server-test' element={<JsonServerTest />} />
+                <Route path='/dev/test/json-server' element={<JsonServerTest />} />
+                <Route path='/dev/bankkonto-kinder/:id' element={<BankAccountChildDev />} />
             </Routes>
         </BrowserRouter>
     </Provider>

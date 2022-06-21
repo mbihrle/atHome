@@ -28,7 +28,7 @@ const TodoList = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTodo({ title: newTodo, date_create: '2022-01-01' });
+        addTodo({ title: newTodo });
         setNewTodo('');
     };
 
@@ -44,7 +44,7 @@ const TodoList = () => {
                 />
             </div>
 
-            <button className='submit'>
+            <button className={styles.submit}>
                 <i className='fa-solid fa-arrow-up-from-bracket'></i>
             </button>
         </form>
@@ -57,7 +57,7 @@ const TodoList = () => {
         content = todos.map((todo) => {
             return (
                 <article key={todo.todo_id}>
-                    <div className='todo'>
+                    <div className={styles.todo}>
                         <input
                             type='checkbox'
                             checked={todo.completed}
@@ -70,13 +70,13 @@ const TodoList = () => {
                                 })
                             }
                         />
-                        <label htmlFor={todo.todo_id}>{todo.title}</label>
                         <button
-                            className='trash'
+                            className={styles.trash}
                             onClick={() => deleteTodo({ id: todo.todo_id })}
                         >
                             <i className='fa-solid fa-trash-can'></i>
                         </button>
+                        <label htmlFor={todo.todo_id}>{todo.title}</label>
                     </div>
                 </article>
             );
@@ -86,11 +86,14 @@ const TodoList = () => {
     }
 
     return (
-        <Screen className={styles.todoFont}>
+        <Screen>
+            <div className={styles.todoScreen}>
+
             <h1>Todo Liste</h1>
             {newItemSection}
             {/* {JSON.stringify(todos)} */}
             {content}
+            </div>
         </Screen>
     );
 };

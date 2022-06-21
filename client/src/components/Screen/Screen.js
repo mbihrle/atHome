@@ -8,7 +8,9 @@ const Screen = ({ children }) => {
         <div className={styles.container}>
             <Header />
             <main className={styles.content}>{children}</main>
-            <Footer className={styles.footer} />
+            <div className={styles.footer}>
+                <Footer />
+            </div>
         </div>
     );
 };

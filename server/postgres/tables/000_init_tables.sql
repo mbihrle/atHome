@@ -18,12 +18,13 @@ CREATE TABLE "users" (
   "username" varchar(250) NOT NULL,
   "email" varchar(250) UNIQUE NOT NULL,
   "firstname" varchar(100) NULL,
-  "surname" varchar(100) NULL,
+  "lastname" varchar(100) NULL,
+  "middlename" varchar(100) NULL,
   "address_id" int DEFAULT 0,
   "role" int DEFAULT 2,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -32,7 +33,11 @@ CREATE TABLE "users" (
 CREATE TABLE "logins" (
   "login_id" SERIAL PRIMARY KEY,
   "hash" varchar(200) NOT NULL,
-  "email" varchar(250) UNIQUE NOT NULL
+  "email" varchar(250) UNIQUE NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
+  "user_create" int DEFAULT 0,
+  "date_change" timestamp,
+  "user_change" int
 );
 
 CREATE TABLE "bank_accounts_children" (
@@ -41,7 +46,7 @@ CREATE TABLE "bank_accounts_children" (
   "account_value" numeric(5, 2) DEFAULT 0,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -56,7 +61,7 @@ CREATE TABLE "bank_transactions_children" (
   "account_value" numeric(5, 2) DEFAULT 0,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -77,7 +82,7 @@ CREATE TABLE "todos" (
   "date_completion" TIMESTAMP,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -86,10 +91,14 @@ CREATE TABLE "todos" (
 CREATE TABLE "weekdays" (
   "weekday_id" INT PRIMARY KEY,
   "name" varchar(50) UNIQUE NOT NULL,
-  "name_sh" varchar(10)
+  "name_sh" varchar(10),
+  "date_create" timestamp default CURRENT_TIMESTAMP,
+  "user_create" int DEFAULT 0,
+  "date_change" timestamp,
+  "user_change" int
 );
 
-CREATE TABLE "shoppinglist" (
+CREATE TABLE "shoppingitems" (
   "item_id" SERIAL PRIMARY KEY,
   "good" varchar(200) UNIQUE NOT NULL,
   "desc" varchar(200),
@@ -100,7 +109,7 @@ CREATE TABLE "shoppinglist" (
   "completed" boolean DEFAULT false,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -111,13 +120,13 @@ CREATE TABLE "foods" (
   "food" varchar(200) UNIQUE NOT NULL,
   "desc" varchar(200),
   "execution_by" int DEFAULT 0,
-  "execution_when" int DEFAULT 0,
+  "weekday_completion" int DEFAULT 0,
   "repetion" boolean DEFAULT false,
   "priority" int DEFAULT 0,
   "completed" boolean DEFAULT false,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -132,7 +141,7 @@ CREATE TABLE "calories" (
   "calories" numeric(5, 2) DEFAULT 0,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -145,7 +154,7 @@ CREATE TABLE "vocabularies" (
   "language_code" varchar(10) NOT NULL,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -157,7 +166,7 @@ CREATE TABLE "languages" (
   "name" varchar(10) NOT NULL,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp NOT NULL,
+  "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int
@@ -171,7 +180,7 @@ ALTER TABLE "bank_transactions_children" ADD FOREIGN KEY ("account_id") REFERENC
 
 ALTER TABLE "vocabularies" ADD FOREIGN KEY ("language_code") REFERENCES "languages" ("language_code");
 
-ALTER TABLE "todos" ADD FOREIGN KEY ("execution_when") REFERENCES "weekdays" ("weekday_id");
+ALTER TABLE "todos" ADD FOREIGN KEY ("weekday_completion") REFERENCES "weekdays" ("weekday_id");
 
 ALTER TABLE "foods" ADD FOREIGN KEY ("weekday_completion") REFERENCES "weekdays" ("weekday_id");
 

@@ -51,9 +51,6 @@ function Header() {
                             <NavDropdown.Item href='/haushalt/todoliste'>
                                 Todo-Liste
                             </NavDropdown.Item>
-                            <NavDropdown.Item href='/json-server-test'>
-                                Todo-Liste Json Server
-                            </NavDropdown.Item>
                         </NavDropdown>
 
                         <NavDropdown
@@ -100,6 +97,17 @@ function Header() {
                         >
                             <NavDropdown.Item href='/dummy'>
                                 Finanzbuch
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown
+                            title='Entwicklung'
+                            id='collasible-nav-dropdown'
+                        >
+                            <NavDropdown.Item href='/dev/bankkonto-kinder/1'>
+                                Kontostand Kind Test
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='/dev/test/json-server'>
+                                Todo-Liste Json Server
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

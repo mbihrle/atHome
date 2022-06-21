@@ -1,45 +1,29 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');  */
-/* 
-.todoFont {
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap'); 
+
+
+.todoScreen {
   font-family: 'Nunito', cursive;
-} */
+  margin: auto;
+  max-width: 900px;
+} 
 
 
-
-
-@import url('https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Roboto&display=swap');
-
-.body {
-  font-family: 'Patrick Hand SC', cursive;
-}
-
-.newTodo {
+ .newTodo {
   width: 100%;
   padding-right: 30px;
 }
 
 
-
-/* 
-input[type="text"], button {
-  font: inherit;
-}
-
-main {
-  margin: auto;
-  max-width: 600px;
-}
-
-h1 {
+.todoScreen h1 {
   margin-bottom: 0.5rem;
 }
 
-article {
-  padding: 1rem;
+.todoScreen article {
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid hsl(0, 0%, 58%);
+  /* border: 1px solid hsl(0, 0%, 58%); */
 }
 
 .todo {
@@ -48,13 +32,13 @@ article {
   align-items: center;
 }
 
-input[type="checkbox"] {
+.todoScreen input[type="checkbox"] {
   min-width: 30px;
   min-height: 30px;
   margin-right: 1rem;
 }
 
-button {
+.todoScreen button {
   min-width: 50px;
   min-height: 50px;
   border: 1px solid #333;
@@ -64,33 +48,31 @@ button {
 
 .trash {
   background-color: #fff;
-  color: mediumvioletred;
+  color: rgb(199, 21, 21);
+  margin: 0 1rem;
 }
 
 .trash:focus, .trash:hover {
   filter:brightness(120%)
 }
 
-form {
+.todoScreen form {
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #333;
+  /* border: 1px solid #333; */
   margin-bottom: 1rem;
 }
 
-form label {
-  position: absolute;
-  left: -10000px;
+.todoScreen form label {
+  display: none;
+
 }
 
-.new-todo {
-  width: 100%;
-  padding-right: 30px;
-}
 
-input[type="text"] {
+
+.todoScreen input[type="text"] {
   width: 100%;
   padding: 0.5rem;
   border-radius: 10px;
@@ -104,4 +86,4 @@ input[type="text"] {
 
 .submit:focus, .submit:hover {
   background-color: limegreen;
-} */ 
+} 
