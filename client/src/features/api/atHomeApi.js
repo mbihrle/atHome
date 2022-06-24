@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-    tagTypes: ['Todos'],
+    tagTypes: ['Todos', 'BankAccountsChildren'],
     endpoints: (builder) => ({
         getAllTodos: builder.query({
             query: () => '/todos',
@@ -36,6 +36,25 @@ export const api = createApi({
             }),
             invalidatesTags: ['Todos'],
         }),
+        getAllLastTransactions: builder.query({
+            query: () => `/bank-accounts-children/`,
+            providesTags: ['BankAccountsChildren'],
+        }),
+        addTransaction: builder.mutation({
+            query: ({transaction}) => ({
+                url: `/bank-accounts-children/${transaction.account.id}`,
+                method: 'PUT', 
+                body: transaction
+            }),
+            invalidatesTags: ['BankAccountsChildren'],
+        })
+        // payOffByAmount: builder.mutation({
+        //     query: ({transaction}) => ({
+        //         url: `/bank-accounts-children/${transaction.account.id}`,
+        //         method: 'UPDATE', 
+        //         body: {transaction.transaction_value, transaction.tansaction_text }
+        //     })
+        // })
     }),
 });
 
@@ -46,4 +65,6 @@ export const {
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
+    useGetAllLastTransactionsQuery,
+    useAddTransactionMutation,
 } = api;

@@ -26,4 +26,4 @@ athome-postgres-data
 dump.sql
 seed
 
-rsync_atHome_to_mservweb
+rsync_*

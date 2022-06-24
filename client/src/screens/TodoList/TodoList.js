@@ -10,9 +10,15 @@ import {
 
 import Screen from '../../components/Screen/Screen';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    solid,
+    // regular,
+    // brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro';
+
 const TodoList = () => {
     const [newTodo, setNewTodo] = useState('');
-    console.log(Date.now());
 
     const {
         data: todos,
@@ -46,6 +52,7 @@ const TodoList = () => {
 
             <button className={styles.submit}>
                 <i className='fa-solid fa-arrow-up-from-bracket'></i>
+                <FontAwesomeIcon icon={solid('arrow-up-from-bracket')} />
             </button>
         </form>
     );
@@ -75,6 +82,7 @@ const TodoList = () => {
                             onClick={() => deleteTodo({ id: todo.todo_id })}
                         >
                             <i className='fa-solid fa-trash-can'></i>
+                            <FontAwesomeIcon icon={solid('trash-can')} />
                         </button>
                         <label htmlFor={todo.todo_id}>{todo.title}</label>
                     </div>
@@ -88,11 +96,10 @@ const TodoList = () => {
     return (
         <Screen>
             <div className={styles.todoScreen}>
-
-            <h1>Todo Liste</h1>
-            {newItemSection}
-            {/* {JSON.stringify(todos)} */}
-            {content}
+                <h1>Todo Liste</h1>
+                {newItemSection}
+                {/* {JSON.stringify(todos)} */}
+                {content}
             </div>
         </Screen>
     );

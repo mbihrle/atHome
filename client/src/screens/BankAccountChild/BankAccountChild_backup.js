@@ -3,46 +3,19 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    useGetAllLastTransactionsQuery,
-    useAddTransactionMutation,
-} from '../../features/api/atHomeApi';
+import { useAddTodoMutation } from '../../features/api/atHomeApi';
 
 import axios from 'axios';
 import Screen from '../../components/Screen/Screen';
 
 function BankAccountChild() {
+    const bankAccountChildValue = useSelector(
+        (state) => state.bankAccountsChildren.bankAccountChildValue
+    );
+    const dispatch = useDispatch();
+    const [accounts, setAccounts] = useState([]);
     const navigate = useNavigate();
     const params = useParams();
-
-    const accountId = params.id;
-
-    // const bankAccountChildValue = useSelector(
-    //     (state) => state.bankAccountsChildren.bankAccountChildValue
-    // );
-    const dispatch = useDispatch();
-
-    const [accounts, setAccounts] = useState([]);
-    const [transactionValue, setTransactionValue] = useState(0);
-    const [transactionText, setTransactionText] = useState('');
-
-    const {
-        data: lastTransactions,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
-    } = useGetAllLastTransactionsQuery();
-
-    if (isSuccess) {
-
-        console.log('check: ', lastTransactions);
-        const lastTransaction = lastTransactions.filter(tran => tran.account_id === 1)
-        console.log(lastTransaction)
-    }
-
-
-    const [useAddTransaction] = useAddTransactionMutation();
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -67,8 +40,6 @@ function BankAccountChild() {
                     </Card.Body>
                 </Card>
             ))}
-
-            <Button>Transaktion erfassen</Button>
 
             <Card className={`${styles.newTransaction} text-center`}>
                 <Card.Header>Neue Transaktion</Card.Header>
@@ -96,14 +67,14 @@ function BankAccountChild() {
                             <Button
                                 className='m-1'
                                 variant='success'
-                                // onClick={console.log('click')}
+                                onClick={console.log('click')}
                             >
                                 Einzahlung
                             </Button>
                             <Button
                                 className='m-1'
                                 variant='danger'
-                                // onClick={console.log('click')}
+                                onClick={console.log('click')}
                             >
                                 Auszahlung
                             </Button>

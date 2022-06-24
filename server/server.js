@@ -49,6 +49,16 @@ app.get('/api/finances/bank-accounts/children/:id', (req, res) => {
         });
 });
 
+app.get('/api/bank-accounts-children', (req, res) => {
+    // console.log('hello from todolist: select all todos');
+    db.select('*')
+        .from('v_bank_transactions_children')
+        .then((lastTransactions) => {
+            console.log(lastTransactions);
+            res.json(lastTransactions);
+        });
+});
+
 app.get('/api/todos', (req, res) => {
     console.log('hello from todolist: select all todos');
     db.select('*')

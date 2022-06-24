@@ -34,7 +34,7 @@ function BankAccountChildDev() {
 
     return (
         <Screen>
-            <h1 className='text-center my-5'>{`Kontenübersicht`}</h1>
+            <h1 className='text-center my-5'>{`Kontostand`}</h1>
             {/* <h1 className='text-center my-5'>{`Kontostand ${accounts[0].account_name}`}</h1> */}
             {accounts.map((account) => (
                 <Card key={account.account_id} className={styles.card}>
