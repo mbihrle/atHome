@@ -36,14 +36,18 @@ export const api = createApi({
             }),
             invalidatesTags: ['Todos'],
         }),
-        getAllLastTransactions: builder.query({
-            query: () => `/bank-accounts-children/`,
+        getAllLastTransactionForEachAccount: builder.query({
+            query: () => `/bank-transactions/children/`,
+            providesTags: ['BankAccountsChildren'],
+        }),
+        getLastTransactionByAccount: builder.query({
+            query: (account_id) => `/bank-transactions/children/${account_id}`,
             providesTags: ['BankAccountsChildren'],
         }),
         addTransaction: builder.mutation({
-            query: ({transaction}) => ({
-                url: `/bank-accounts-children/${transaction.account.id}`,
-                method: 'PUT', 
+            query: (transaction) => ({
+                url: `/bank-transactions/children/add-tran`,
+                method: 'POST', 
                 body: transaction
             }),
             invalidatesTags: ['BankAccountsChildren'],
@@ -65,6 +69,6 @@ export const {
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
-    useGetAllLastTransactionsQuery,
+    useGetLastTransactionByAccountQuery,
     useAddTransactionMutation,
 } = api;

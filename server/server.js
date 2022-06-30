@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import knex from 'knex';
+import asyncHandler from 'express-async-handler';
 
 // import { balancesChildrenJson } from './data/testdata.js';
 
@@ -26,30 +27,7 @@ app.get('/', (req, res) => {
     res.send('API is running');
 });
 
-app.get('/api/finances/bank-accounts/children', (req, res) => {
-    console.log('tttt');
-    db.select('*')
-        .from('v_bank_transactions_children')
-        .then((accounts) => {
-            // console.log(accounts);
-            res.json(accounts);
-        });
-});
-
-app.get('/api/finances/bank-accounts/children/:id', (req, res) => {
-    const account_id = req.params.id;
-    console.log('account_id server: ', req.params.id);
-    db('bank_accounts_children');
-    db.select('*')
-        .from('v_bank_transactions_children')
-        .where('account_id', account_id)
-        .then((accounts) => {
-            // console.log(accounts);
-            res.json(accounts);
-        });
-});
-
-app.get('/api/bank-accounts-children', (req, res) => {
+app.get('/api/bank-transactions/children', (req, res) => {
     // console.log('hello from todolist: select all todos');
     db.select('*')
         .from('v_bank_transactions_children')
@@ -58,6 +36,79 @@ app.get('/api/bank-accounts-children', (req, res) => {
             res.json(lastTransactions);
         });
 });
+
+app.get('/api/bank-transactions/children/:account_id', (req, res) => {
+    const account_id = req.params.account_id;
+    db.select('*')
+        .from('v_bank_transactions_children')
+        .where('account_id', account_id)
+        .then((lastTransactions) => {
+            console.log(lastTransactions);
+            res.json(lastTransactions);
+        });
+});
+
+app.post(
+    '/api/bank-transactions/children/add-tran',
+    asyncHandler(async (req, res) => {
+        console.log('req.body: ', req.body);
+        const { account_id, transaction_text, transaction_value, type } =
+            req.body;
+
+        const getAccountValue = async () => {
+            const lastTransaction = db
+                .select('*')
+                .from('v_bank_transactions_children')
+                .where('account_id', account_id);
+            const tran = await lastTransaction;
+            return tran[0].account_value;
+        };
+
+        const lastAccountValue = await getAccountValue();
+        const account_value =
+            Number(lastAccountValue) + Number(transaction_value);
+
+        console.log('aaalastAccountValue: ', lastAccountValue);
+        console.log('bbbtransaction_value: ', transaction_value);
+        console.log('cccaccount_value: ', account_value);
+
+        // console.log('account_value in testfn: ', account_value);
+
+        db.insert({
+            account_id,
+            transaction_text,
+            transaction_value,
+            type,
+            account_value,
+        })
+            .into('bank_transactions_children')
+            .returning('*')
+            .then(res.send('success'));
+    })
+);
+
+// app.get('/api/finances/bank-accounts/children', (req, res) => {
+//     console.log('tttt');
+//     db.select('*')
+//         .from('v_bank_transactions_children')
+//         .then((accounts) => {
+//             // console.log(accounts);
+//             res.json(accounts);
+//         });
+// });
+
+// app.get('/api/finances/bank-accounts/children/:id', (req, res) => {
+//     const account_id = req.params.id;
+//     console.log('account_id server: ', req.params.id);
+//     db('bank_accounts_children');
+//     db.select('*')
+//         .from('v_bank_transactions_children')
+//         .where('account_id', account_id)
+//         .then((accounts) => {
+//             // console.log(accounts);
+//             res.json(accounts);
+//         });
+// });
 
 app.get('/api/todos', (req, res) => {
     console.log('hello from todolist: select all todos');
