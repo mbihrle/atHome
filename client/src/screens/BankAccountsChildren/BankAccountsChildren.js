@@ -1,45 +1,68 @@
 import styles from './BankAccountsChildren.module.css';
+import { Container, Card, Row, Col } from 'react-bootstrap';
+import { useGetAllLastTransactionsForEachAccountQuery } from '../../features/api/atHomeApi';
+
 import Screen from '../../components/Screen/Screen';
-import { useState, useEffect } from 'react';
+import Loader from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
-import axios from 'axios';
-// import {balances}  from '../data/testdata';
 
 function BankAccountsChildren() {
-    const [accounts, setAccounts] = useState([]);
+    // const [accounts, setAccounts] = useState([]);
+
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchAccounts = async () => {
-            const { data } = await axios.get(
-                '/api/finances/bank-accounts/children'
-            );
-            // const { data } = await axios.get(`${SERVER_URL}/api/finances/balances/children`);
-            setAccounts(data);
-        };
-        fetchAccounts();
-    }, []);
+    const {
+        data: lastTransaction,
+        isLoading,
+        isSuccess,
+        isError,
+        error,
+    } = useGetAllLastTransactionsForEachAccountQuery();
 
-    return (
-        <Screen>
-            <h1 className='text-center my-5'>Bankkonto Kinder</h1>
-            {accounts.map((account) => (
-                <Card
-                    key={account.account_id}
-                    className={styles.card}
+    let sectionAccounts;
+    if (isLoading) {
+        sectionAccounts = <Loader />;
+    } else if (isError) {
+        sectionAccounts = error;
+    } else if (isSuccess) {
+        sectionAccounts = lastTransaction.map((tran) => {
+            return (
+                <section
+                    key={tran.account_id}
+                    id={styles.account}
                     onClick={() =>
                         navigate(
-                            `/finanzen/bankkonto-kinder/${account.account_id}`
+                            `/finanzen/bankkonto-kinder/${tran.account_id}`
                         )
                     }
                 >
-                    <Card.Body>
-                        <Card.Title> {account.account_name}</Card.Title>
-                        <h3>{account.account_value} Euro</h3>
-                    </Card.Body>
-                </Card>
-            ))}
+                    <Row>
+                        <Col>
+                            <Card id={styles.card}>
+                                <Card.Body>
+                                    <Card.Title>
+                                        {`${tran.account_name}`}
+                                    </Card.Title>
+                                    <h3>{tran.account_value} Euro</h3>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                </section>
+            );
+        });
+    }
+
+    // useEffect(() => {
+
+    // }, []);
+
+    return (
+        <Screen>
+            <h1 className='text-center'>Kontostände Kinder</h1>
+            <Container id={styles.accountContainer}>
+                <div id={styles.accounts}>{sectionAccounts}</div>
+            </Container>
         </Screen>
     );
 }

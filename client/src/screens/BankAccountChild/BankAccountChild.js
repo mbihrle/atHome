@@ -124,7 +124,8 @@ function BankAccountChild() {
                                 <Card id={styles.card}>
                                     <Card.Body>
                                         <Card.Title>
-                                            {`Kontostand ${tran.account_name}`}
+                                        Kontostand <br />
+                                            {`${tran.account_name}`}
                                         </Card.Title>
                                         <h3>{tran.account_value} Euro</h3>
                                     </Card.Body>

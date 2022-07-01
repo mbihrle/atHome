@@ -36,7 +36,7 @@ export const api = createApi({
             }),
             invalidatesTags: ['Todos'],
         }),
-        getAllLastTransactionForEachAccount: builder.query({
+        getAllLastTransactionsForEachAccount: builder.query({
             query: () => `/bank-transactions/children/`,
             providesTags: ['BankAccountsChildren'],
         }),
@@ -69,6 +69,7 @@ export const {
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
+    useGetAllLastTransactionsForEachAccountQuery,
     useGetLastTransactionByAccountQuery,
     useAddTransactionMutation,
 } = api;

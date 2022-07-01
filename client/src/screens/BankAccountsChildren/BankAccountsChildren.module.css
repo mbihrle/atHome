@@ -1,7 +1,31 @@
 
 
-.card {
-    width: 18rem;
-    margin: 0 auto 1rem auto
+#accountContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    padding: 1rem;
+    
 }
 
+#accounts{
+    margin: 1rem;
+    padding: 1rem;
+}
+
+
+#account {
+    margin: 1rem;
+    padding: 1rem;
+    
+}
+
+
+#card {
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    width: 20vw;
+    height: 15vh;
+ }
