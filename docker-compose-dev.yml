@@ -32,7 +32,7 @@ services:
   # API
   api:
     build: 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: './server'
     ports:
       - ${SERVER_PORT}:${SERVER_PORT} #host:docker
@@ -44,10 +44,10 @@ services:
       # - /code/node_modules
       - ./server:/code
 
-  # Client -- hier wird aktuell als einziges das Dockerfile (und nicht Dockerfile.dev) verwendet
+  # Client
   client:
     build: 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./client
     ports:
       - 3000:3000
