@@ -27,26 +27,43 @@ app.get('/', (req, res) => {
     res.send('API is running');
 });
 
-app.get('/api/bank-transactions/children', (req, res) => {
+app.get('/api/bank-transactions/children/all_last_transactions', (req, res) => {
     // console.log('hello from todolist: select all todos');
     db.select('*')
-        .from('v_bank_transactions_children')
+        .from('v_last_bank_transactions_children')
         .then((lastTransactions) => {
             console.log(lastTransactions);
             res.json(lastTransactions);
         });
 });
 
-app.get('/api/bank-transactions/children/:account_id', (req, res) => {
-    const account_id = req.params.account_id;
-    db.select('*')
-        .from('v_bank_transactions_children')
-        .where('account_id', account_id)
-        .then((lastTransactions) => {
-            console.log(lastTransactions);
-            res.json(lastTransactions);
-        });
-});
+app.get(
+    '/api/bank-transactions/children/all_transactions/:account_id',
+    (req, res) => {
+        const account_id = req.params.account_id;
+        db.select('*')
+            .from('bank_transactions_children')
+            .where('account_id', account_id)
+            .then((lastTransactions) => {
+                console.log(lastTransactions);
+                res.json(lastTransactions);
+            });
+    }
+);
+
+app.get(
+    '/api/bank-transactions/children/last_transactions/:account_id',
+    (req, res) => {
+        const account_id = req.params.account_id;
+        db.select('*')
+            .from('v_last_bank_transactions_children')
+            .where('account_id', account_id)
+            .then((lastTransactions) => {
+                console.log(lastTransactions);
+                res.json(lastTransactions);
+            });
+    }
+);
 
 app.post(
     '/api/bank-transactions/children/add-tran',
@@ -58,7 +75,7 @@ app.post(
         const getAccountValue = async () => {
             const lastTransaction = db
                 .select('*')
-                .from('v_bank_transactions_children')
+                .from('v_last_bank_transactions_children')
                 .where('account_id', account_id);
             const tran = await lastTransaction;
             return tran[0].account_value;
@@ -86,29 +103,6 @@ app.post(
             .then(res.send('success'));
     })
 );
-
-// app.get('/api/finances/bank-accounts/children', (req, res) => {
-//     console.log('tttt');
-//     db.select('*')
-//         .from('v_bank_transactions_children')
-//         .then((accounts) => {
-//             // console.log(accounts);
-//             res.json(accounts);
-//         });
-// });
-
-// app.get('/api/finances/bank-accounts/children/:id', (req, res) => {
-//     const account_id = req.params.id;
-//     console.log('account_id server: ', req.params.id);
-//     db('bank_accounts_children');
-//     db.select('*')
-//         .from('v_bank_transactions_children')
-//         .where('account_id', account_id)
-//         .then((accounts) => {
-//             // console.log(accounts);
-//             res.json(accounts);
-//         });
-// });
 
 app.get('/api/todos', (req, res) => {
     console.log('hello from todolist: select all todos');

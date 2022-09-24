@@ -2,8 +2,10 @@ import styles from './BankAccountChild.module.css';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Card, Button, Row, Col, Table } from 'react-bootstrap';
+import { Chart } from 'react-google-charts';
 import {
     useGetLastTransactionByAccountQuery,
+    useGetAllTransactionsByAccountQuery,
     useAddTransactionMutation,
 } from '../../features/api/atHomeApi';
 
@@ -32,6 +34,32 @@ function BankAccountChild() {
         isError,
         error,
     } = useGetLastTransactionByAccountQuery(accountId);
+
+    
+    //Chart
+    const {
+        data: allTransactions,
+        // isLoading,
+        // isSuccess,
+        // isError,
+        // error,
+    } = useGetAllTransactionsByAccountQuery(accountId);
+
+    const chartOptions = {
+        title: 'Entwicklung Konto',
+        curveType: 'function',
+        legend: { position: 'bottom' },
+    };
+
+    // build an data array for the chart
+    const chartHeaders = [['Nr', 'Kontostand']];
+    let tranId = 0;
+    const accountValues = allTransactions?.map((tran) => {
+        tranId++;
+        return [tranId, parseFloat(tran.account_value)];
+    });
+
+    const chartData = chartHeaders.concat(accountValues);
 
     const [addTransaction] = useAddTransactionMutation();
 
@@ -92,7 +120,6 @@ function BankAccountChild() {
     const handleCreateNewTransaction = (payIn) => {
         setMsgInputError('');
         const inputValueValid = validateInput();
-        console.log(inputValueValid);
         if (inputValueValid) {
             setIsSending(true);
             if (payIn) {
@@ -119,13 +146,13 @@ function BankAccountChild() {
             return (
                 <section key={tran.account_id} id={styles.sectionAccount}>
                     <Container>
+                        <h1>Kontostand {`${tran.account_name}`}</h1>
                         <Row>
                             <Col>
                                 <Card id={styles.card}>
                                     <Card.Body>
                                         <Card.Title>
-                                        Kontostand <br />
-                                            {`${tran.account_name}`}
+                                            {/* {`${tran.account_name}`} */}
                                         </Card.Title>
                                         <h3>{tran.account_value} Euro</h3>
                                     </Card.Body>
@@ -134,8 +161,21 @@ function BankAccountChild() {
                         </Row>
                         <Row>
                             <Col>
+                                <Card id={styles.chartCard}>
+                                    <Chart
+                                        chartType='LineChart'
+                                        width='100%'
+                                        // height='400px'
+                                        data={chartData}
+                                        options={chartOptions}
+                                    />
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
                                 <h5 className='text-center my-4'>
-                                    Letzte Transaktion
+                                    Letzte Buchung
                                 </h5>
                             </Col>
                         </Row>
@@ -194,13 +234,13 @@ function BankAccountChild() {
                             <Row>
                                 <Col md={3}>
                                     <label htmlFor='transactionValue'>
-                                        Betrag (Format: 10.45)
+                                        Betrag (Bsp. 10.45)
                                     </label>
                                     <input
                                         id='transactionValue'
                                         type='text'
                                         className='form-control'
-                                        placeholder='Betrag'
+                                        placeholder=''
                                         aria-label='transaction value'
                                         required
                                         value={transactionValue}
@@ -227,40 +267,43 @@ function BankAccountChild() {
                                 </Col>
                                 {/* </InputGroup> */}
                             </Row>
-                            <div className='mt-4'>
-                                <Button
-                                    className='m-1'
-                                    variant='success'
-                                    onClick={() =>
-                                        handleCreateNewTransaction(true)
-                                    }
-                                >
-                                    Einzahlung
-                                </Button>
-                                <Button
-                                    className='m-1'
-                                    variant='danger'
-                                    onClick={() =>
-                                        handleCreateNewTransaction(false)
-                                    }
-                                >
-                                    Auszahlung
-                                </Button>
-                                <Button
-                                    className='m-1'
-                                    variant='info'
-                                    onClick={() => resetNewTransaction()}
-                                >
-                                    Zurücksetzen
-                                </Button>
-                                <Button
-                                    className='m-1'
-                                    variant='warning'
-                                    onClick={() => cancelNewTransaction()}
-                                >
-                                    Abbruch
-                                </Button>
-                            </div>
+                            <Col></Col>
+                            <Row>
+                                <div className='mt-4'>
+                                    <Button
+                                        className='m-1'
+                                        variant='success'
+                                        onClick={() =>
+                                            handleCreateNewTransaction(true)
+                                        }
+                                    >
+                                        Einzahlung
+                                    </Button>
+                                    <Button
+                                        className='m-1'
+                                        variant='danger'
+                                        onClick={() =>
+                                            handleCreateNewTransaction(false)
+                                        }
+                                    >
+                                        Auszahlung
+                                    </Button>
+                                    <Button
+                                        className='m-1'
+                                        variant='info'
+                                        onClick={() => resetNewTransaction()}
+                                    >
+                                        Zurücksetzen
+                                    </Button>
+                                    <Button
+                                        className='m-1'
+                                        variant='warning'
+                                        onClick={() => cancelNewTransaction()}
+                                    >
+                                        Abbruch
+                                    </Button>
+                                </div>
+                            </Row>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -300,7 +343,7 @@ function BankAccountChild() {
             {showSectionNewTransaction ? null : (
                 <div className='d-flex justify-content-center m-4'>
                     <Button onClick={() => setShowSectionNewTransaction(true)}>
-                        Transaktion erfassen
+                        Buchung erfassen
                     </Button>
                 </div>
             )}

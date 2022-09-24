@@ -1,5 +1,7 @@
 BEGIN TRANSACTION;
 
+ALTER DATABASE "atHome" SET timezone TO 'Europe/Berlin';
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS logins;
 DROP TABLE IF EXISTS bank_accounts_children;
@@ -61,7 +63,7 @@ CREATE TABLE "bank_transactions_children" (
   "account_value" numeric(5, 2) DEFAULT 0,
   "active" boolean DEFAULT true,
   "deleted" boolean DEFAULT false,
-  "date_create" timestamp default CURRENT_TIMESTAMP,
+  "date_create" timestamp DEFAULT CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
   "user_change" int

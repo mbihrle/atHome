@@ -1,7 +1,7 @@
 BEGIN TRANSACTION;
 
-DROP VIEW IF EXISTS public.v_bank_transactions_children;
-CREATE VIEW  public.v_bank_transactions_children
+DROP VIEW IF EXISTS public.v_last_bank_transactions_children;
+CREATE VIEW  public.v_last_bank_transactions_children
 AS
 select 
 	BA.account_name,

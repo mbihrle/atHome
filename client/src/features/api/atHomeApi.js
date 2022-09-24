@@ -9,7 +9,8 @@ export const api = createApi({
     endpoints: (builder) => ({
         getAllTodos: builder.query({
             query: () => '/todos',
-            transformResponse: res => res.sort((a, b) => b.todo_id - a.todo_id),
+            transformResponse: (res) =>
+                res.sort((a, b) => b.todo_id - a.todo_id),
             providesTags: ['Todos'],
         }),
         addTodo: builder.mutation({
@@ -37,25 +38,31 @@ export const api = createApi({
             invalidatesTags: ['Todos'],
         }),
         getAllLastTransactionsForEachAccount: builder.query({
-            query: () => `/bank-transactions/children/`,
+            query: () => `/bank-transactions/children/all_last_transactions`,
+            providesTags: ['BankAccountsChildren'],
+        }),
+        getAllTransactionsByAccount: builder.query({
+            query: (account_id) =>
+                `/bank-transactions/children/all_transactions/${account_id}`,
             providesTags: ['BankAccountsChildren'],
         }),
         getLastTransactionByAccount: builder.query({
-            query: (account_id) => `/bank-transactions/children/${account_id}`,
+            query: (account_id) =>
+                `/bank-transactions/children/last_transactions/${account_id}`,
             providesTags: ['BankAccountsChildren'],
         }),
         addTransaction: builder.mutation({
             query: (transaction) => ({
                 url: `/bank-transactions/children/add-tran`,
-                method: 'POST', 
-                body: transaction
+                method: 'POST',
+                body: transaction,
             }),
             invalidatesTags: ['BankAccountsChildren'],
-        })
+        }),
         // payOffByAmount: builder.mutation({
         //     query: ({transaction}) => ({
         //         url: `/bank-accounts-children/${transaction.account.id}`,
-        //         method: 'UPDATE', 
+        //         method: 'UPDATE',
         //         body: {transaction.transaction_value, transaction.tansaction_text }
         //     })
         // })
@@ -70,6 +77,7 @@ export const {
     useUpdateTodoMutation,
     useDeleteTodoMutation,
     useGetAllLastTransactionsForEachAccountQuery,
+    useGetAllTransactionsByAccountQuery,
     useGetLastTransactionByAccountQuery,
     useAddTransactionMutation,
 } = api;
