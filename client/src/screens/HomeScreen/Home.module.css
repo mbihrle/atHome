@@ -1,11 +1,24 @@
 
-.picture {
+/* .picture {
     display: flex;
-    justify-content: center;
     overflow: hidden;
-  }
+    justify-content: center;
+  } */
   
-  .picture img {
-    width: 40%;
-  }
-  
+  .frame {
+   width: 576px;
+   transform: rotate(2deg);
+   /* border: 3px solid #ccc; */
+   background: white;
+   margin: auto;
+   padding: 15px 10px;
+   box-shadow: rgb(204, 204, 204) 10px 10px 50px 10px;
+   border-radius: 25px
+ }
+
+ .video {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+ 
+ }

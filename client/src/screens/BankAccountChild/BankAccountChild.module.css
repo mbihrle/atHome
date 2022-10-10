@@ -9,7 +9,6 @@
     text-align: center;
     background-color: #f3f3f3; 
     margin: 2rem auto 2rem auto;
-    width: 30vw;
 }
 
 #chartCard {
@@ -17,13 +16,6 @@
     text-align: center;
     background-color: #f3f3f3; 
     margin: 2rem auto 2rem auto;
-    width: 30vw;
-}
-
-
-
-#table {
-    margin: auto ;
 }
 
 

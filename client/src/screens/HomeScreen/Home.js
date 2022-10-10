@@ -9,22 +9,9 @@ function Home() {
         <Screen>
             <h1 className='text-center mb-3'>Willkommen bei @Home!</h1>
             <h2 className='text-center mb-5'>unserer Familienwebseite</h2>
-            {/* <video
-                style={{
-                    width: '192px',
-                    padding: '10px',
-                    transform: 'rotate(2deg)',
-                    margin: '2em auto',
-                }}
-                controls
-                autostart
-                autoPlay
-                loop
-                muted
-                src={Video}
-                type='video/mp4'
-            /> */}
-            <div className={`${styles.picture}`}>
+            <div className={`${styles.frame}`}>
+
+            <div className={`${styles.video}`}>
                 {/* <Image fluid rounded src={picture}></Image> */}
                 <video
                     style={{
@@ -32,15 +19,18 @@ function Home() {
                         padding: '10px',
                         transform: 'rotate(2deg)',
                         margin: '2em auto',
+                        borderRadius: '25px',
+                        overflow: 'hidden'
                     }}
                     controls
-                    autostart
+                    autostart='true'
                     autoPlay
                     loop
                     muted
                     src={Video}
                     type='video/mp4'
                 />
+            </div>
             </div>
         </Screen>
     );

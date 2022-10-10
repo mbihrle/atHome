@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
-import styles from './message.module.css'
-
+// import styles from './message.module.css'
 
 const Message = ({ variant, children }) => {
     return <Alert variant={variant}>{children}</Alert>;
@@ -9,5 +8,5 @@ const Message = ({ variant, children }) => {
 
 Message.defaultProps = {
     variant: 'info',
-}
+};
 export default Message;

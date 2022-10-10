@@ -35,7 +35,6 @@ function BankAccountChild() {
         error,
     } = useGetLastTransactionByAccountQuery(accountId);
 
-    
     //Chart
     const {
         data: allTransactions,
@@ -145,10 +144,12 @@ function BankAccountChild() {
         sectionAccount = lastTransaction.map((tran) => {
             return (
                 <section key={tran.account_id} id={styles.sectionAccount}>
-                    <Container>
+                    <Container fluid>
                         <h1>Kontostand {`${tran.account_name}`}</h1>
                         <Row>
-                            <Col>
+                            <Col md={0}></Col>
+                            {/* <Col md="auto"> */}
+                            <Col xs={12} md={6} >
                                 <Card id={styles.card}>
                                     <Card.Body>
                                         <Card.Title>
@@ -158,9 +159,12 @@ function BankAccountChild() {
                                     </Card.Body>
                                 </Card>
                             </Col>
+                            <Col></Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col></Col>
+                            {/* <Col md="auto"> */}
+                            <Col xs={12} md={6}>
                                 <Card id={styles.chartCard}>
                                     <Chart
                                         chartType='LineChart'
@@ -171,6 +175,7 @@ function BankAccountChild() {
                                     />
                                 </Card>
                             </Col>
+                            <Col></Col>
                         </Row>
                         <Row>
                             <Col>
@@ -180,6 +185,9 @@ function BankAccountChild() {
                             </Col>
                         </Row>
                         <Row>
+                        <Col>
+                        </Col>
+                        <Col xs={12} md={8}>
                             <div id={styles.table}>
                                 <Table striped bordered hover>
                                     <thead>
@@ -215,6 +223,9 @@ function BankAccountChild() {
                                     </tbody>
                                 </Table>
                             </div>
+                            </Col>
+                            <Col>
+                        </Col>
                         </Row>
                     </Container>
                 </section>
