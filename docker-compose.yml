@@ -5,7 +5,7 @@ services:
   postgres:
     # image: postgres
     build: 
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./server/postgres/
     environment: 
       POSTGRES_USER: ${POSTGRES_USER}
@@ -15,12 +15,15 @@ services:
     ports:
       - "5434:5432" #host:docker
     volumes:
-      - ./server/postgres/athome-postgres-data:/var/lib/postgresql/data
+      # Working with Docker database volume
+      - athome-postgres-data:/var/lib/postgresql/data
+      # Working with external database volume in folder athome-postgres-data
+      #- ./server/postgres/athome-postgres-data:/var/lib/postgresql/data
   
 # NGINX
   nginx:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nginx
     depends_on:
       - api
@@ -40,11 +43,12 @@ services:
       NODE_ENV: ${NODE_ENV}
       SERVER_PORT: ${SERVER_PORT} 
       POSTGRES_URI: ${POSTGRES_URI}
+      JWT_SECRET: ${JWT_SECRET}
     volumes:
       # - /code/node_modules
       - ./server:/code
 
-  # Client -- hier wird aktuell als einziges das Dockerfile (und nicht Dockerfile.dev) verwendet
+
   client:
     build: 
       dockerfile: Dockerfile
@@ -62,4 +66,4 @@ services:
     tty: true
 
 volumes:
-  atHome-postgres-data:
+  athome-postgres-data:

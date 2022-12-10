@@ -4,8 +4,9 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import asyncHandler from 'express-async-handler';
 import db from './config/db.js';
-import {notFound, errorHandler} from './middleware/errorMiddleware.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
+import userRoutes from './routes/userRoutes.js';
 import bankTransactionsChildrenRoutes from './routes/bankTransactionsChildrenRoutes.js';
 import todoListRoutes from './routes/todoListRoutes.js';
 
@@ -18,6 +19,8 @@ console.log('process.env.SERVER_PORT: ', process.env.SERVER_PORT);
 
 const app = express();
 
+app.use(express.json());
+
 app.use(cors());
 app.use(express.json());
 
@@ -25,6 +28,7 @@ app.get('/', (req, res) => {
     res.send('API is running');
 });
 
+app.use('/api/users/', userRoutes);
 app.use('/api/bank-transactions/children', bankTransactionsChildrenRoutes);
 app.use('/api/todos/', todoListRoutes);
 
