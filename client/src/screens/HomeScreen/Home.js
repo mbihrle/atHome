@@ -22,11 +22,12 @@ function Home() {
                         borderRadius: '25px',
                         overflow: 'hidden'
                     }}
-                    controls
+                    // controls
                     autostart='true'
                     autoPlay
                     loop
                     muted
+                    // playsInline
                     src={Video}
                     type='video/mp4'
                 />

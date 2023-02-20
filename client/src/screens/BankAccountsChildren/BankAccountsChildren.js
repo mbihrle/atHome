@@ -1,6 +1,6 @@
 import styles from './BankAccountsChildren.module.css';
 import { Container, Card, Row, Col } from 'react-bootstrap';
-import { useGetAllLastTransactionsForEachAccountQuery } from '../../features/api/atHomeApi';
+import { useGetAllLastTransactionsForEachAccountQuery } from '../../features/api/atHomeApi/slices/bankChildrenSlice';
 
 import Screen from '../../components/Screen/Screen';
 import Loader from '../../components/Loader/Loader';

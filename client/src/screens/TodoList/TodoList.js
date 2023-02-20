@@ -6,7 +6,7 @@ import {
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
-} from '../../features/api/atHomeApi';
+} from '../../features/api/atHomeApi/slices/todosSlice';
 
 import Screen from '../../components/Screen/Screen';
 

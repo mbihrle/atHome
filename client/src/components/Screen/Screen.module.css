@@ -1,4 +1,10 @@
 /* Monitor Screen */
+header {
+    margin-bottom: 2rem;
+}
+
+
+
 @media screen and (min-width: 992px )  {
     .container {
         display: flex;

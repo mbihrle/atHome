@@ -36,13 +36,14 @@ CREATE TABLE "users" (
 
 CREATE TABLE "logins" (
   "login_id" SERIAL PRIMARY KEY,
+  "user_id" int UNIQUE NOT NULL,
   "email" varchar(250) UNIQUE NOT NULL,
   "hash" varchar(250) NOT NULL,
   "token" varchar(250) UNIQUE,
   "date_create" timestamp default CURRENT_TIMESTAMP,
   "user_create" int DEFAULT 0,
   "date_change" timestamp,
-  "user_change" int
+  "user_change" int DEFAULT 0
 );
 
 CREATE TABLE "bank_accounts_children" (
@@ -177,7 +178,7 @@ CREATE TABLE "languages" (
   "user_change" int
 );
 
-ALTER TABLE "logins" ADD FOREIGN KEY ("email") REFERENCES "users" ("email");
+ALTER TABLE "logins" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
 
 ALTER TABLE "bank_accounts_children" ADD FOREIGN KEY ("account_id") REFERENCES "users" ("user_id");
 

@@ -1,0 +1,4 @@
+
+recource: https://github.com/typicode/json-server#alternative-port
+navigate into this folder and type the following command to start json-server
+json-server --watch db.json --port 7000

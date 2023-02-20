@@ -6,7 +6,7 @@ import {
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
-} from '../../features/api/jsonServerApi';
+} from '../../features/api/jsonServerApiDev/jsonServerApiDev';
 
 import Screen from '../../components/Screen/Screen';
 

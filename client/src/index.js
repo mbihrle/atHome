@@ -4,8 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
-
-
 import Home from './screens/HomeScreen/Home';
 import BankAccountsChildren from './screens/BankAccountsChildren/BankAccountsChildren';
 import BankAccountChild from './screens/BankAccountChild/BankAccountChild';
@@ -15,8 +13,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Pokemon from './screens/Pokemon/Pokemon';
 import TodoList from './screens/TodoList/TodoList';
-import BankAccountChildDev from './screens/BankAccountChild/BankAccountChildDev';
 import JsonServerTest from './screens/JsonServerTest/JsonServerTest';
+import Testpage from './screens/Testpage/Testpage';
+import WorldCup from './screens/WorldCup/WorldCup';
+import LoginScreen from './screens/LoginScreen/LoginScreen';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,6 +26,7 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />} />
+                <Route path='/login' element={<LoginScreen />} />
                 <Route path='/dummy' element={<DummyPage />} />
                 <Route
                     path='/finanzen/bankkonto-kinder'
@@ -38,8 +39,12 @@ root.render(
                 />
                 <Route path='/spiele/pokemon/' element={<Pokemon />} />
                 <Route path='/haushalt/todoliste/' element={<TodoList />} />
-                <Route path='/dev/test/json-server' element={<JsonServerTest />} />
-                <Route path='/dev/bankkonto-kinder/:id' element={<BankAccountChildDev />} />
+                <Route
+                    path='/dev/test/json-server'
+                    element={<JsonServerTest />}
+                />
+                <Route path='/dev/testpage/' element={<Testpage />} />
+                <Route path='/dev/worldcup/' element={<WorldCup />} />
             </Routes>
         </BrowserRouter>
     </Provider>

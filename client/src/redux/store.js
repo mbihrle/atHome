@@ -1,26 +1,33 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
 
-import bankAccountsChildrenReducer from '../features/bankAccountsChildrenSlice';
-import { api } from '../features/api/atHomeApi';
-import {jsonApi} from '../features/api/jsonServerApi'
-import { pokemonApi } from '../features/api/pokemonApi';
+import { api } from '../features/api/atHomeApi/atHomeApi';
+import { jsonApi as jsonApiDev } from '../features/api/jsonServerApiDev/jsonServerApiDev';
+import { pokemonApi } from '../features/api/pokemonApi/pokemonApi';
+import counterReducer from '../features/Counter/counterSlice';
+import worldCupReducer from '../screens/WorldCup/worldCupSlice';
+import { flagApi } from '../screens/WorldCup/flagApi';
+import testReducer from '../screens/WorldCup/testSlice';
 
 export const store = configureStore({
     reducer: {
         // Add the generated reducer as a specific top-level slice
-        bankAccountsChildren: bankAccountsChildrenReducer,
+        counter: counterReducer,
+        worldCup: worldCupReducer,
+        zahl1: testReducer,
         [api.reducerPath]: api.reducer,
-        [jsonApi.reducerPath]: jsonApi.reducer,
+        [jsonApiDev.reducerPath]: jsonApiDev.reducer,
         [pokemonApi.reducerPath]: pokemonApi.reducer,
+        [flagApi.reducerPath]: flagApi.reducer,
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             api.middleware,
-            jsonApi.middleware,
-            pokemonApi.middleware
+            jsonApiDev.middleware,
+            pokemonApi.middleware,
+            flagApi.middleware
         ),
 });
 

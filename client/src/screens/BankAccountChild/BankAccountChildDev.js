@@ -8,7 +8,7 @@ import {
     decrement,
     // payInByAmount,
     // payOffByAmount,
-} from '../../features/bankAccountsChildrenSlice';
+} from '../../features/slices/bankAccountsChildrenSlice';
 import axios from 'axios';
 import Screen from '../../components/Screen/Screen';
 

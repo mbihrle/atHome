@@ -1,15 +1,11 @@
-// Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { api } from '../atHomeApi';
 
-// Define a service using a base URL and expected endpoints
-export const jsonApi = createApi({
-    reducerPath: 'jsonApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3500' }),
-    tagTypes: ['Todos'],
+const extendedApiSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         getAllTodos: builder.query({
             query: () => '/todos',
-            transformResponse: res => res.sort((a, b) => b.id - a.id),
+            transformResponse: (res) =>
+                res.sort((a, b) => b.todo_id - a.todo_id),
             providesTags: ['Todos'],
         }),
         addTodo: builder.mutation({
@@ -22,7 +18,7 @@ export const jsonApi = createApi({
         }),
         updateTodo: builder.mutation({
             query: (todo) => ({
-                url: `/todos/${todo.id}`,
+                url: `/todos/${todo.todo_id}`,
                 method: 'PATCH',
                 body: todo,
             }),
@@ -37,13 +33,12 @@ export const jsonApi = createApi({
             invalidatesTags: ['Todos'],
         }),
     }),
+    overrideExisting: false,
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {
     useGetAllTodosQuery,
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
-} = jsonApi;
+} = extendedApiSlice;

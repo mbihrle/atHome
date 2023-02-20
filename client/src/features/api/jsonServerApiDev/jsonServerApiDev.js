@@ -2,33 +2,39 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Define a service using a base URL and expected endpoints
-export const api = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+export const jsonApi = createApi({
+    reducerPath: 'jsonApi',
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:7000' }),
+    tagTypes: ['Todos'],
     endpoints: (builder) => ({
         getAllTodos: builder.query({
-            query: () => '/household/todolist',
+            query: () => '/todos',
+            transformResponse: (res) => res.sort((a, b) => b.id - a.id),
+            providesTags: ['Todos'],
         }),
         addTodo: builder.mutation({
             query: (todo) => ({
-                url: '/household/todolist',
+                url: '/todos',
                 method: 'POST',
                 body: todo,
             }),
+            invalidatesTags: ['Todos'],
         }),
         updateTodo: builder.mutation({
             query: (todo) => ({
-                url: `/household/todolist/${todo.id}`,
+                url: `/todos/${todo.id}`,
                 method: 'PATCH',
                 body: todo,
             }),
+            invalidatesTags: ['Todos'],
         }),
         deleteTodo: builder.mutation({
             query: ({ id }) => ({
-                url: `/household/todolist/${id}`,
+                url: `/todos/${id}`,
                 method: 'DELETE',
                 body: id,
             }),
+            invalidatesTags: ['Todos'],
         }),
     }),
 });
@@ -40,4 +46,4 @@ export const {
     useAddTodoMutation,
     useUpdateTodoMutation,
     useDeleteTodoMutation,
-} = api;
+} = jsonApi;

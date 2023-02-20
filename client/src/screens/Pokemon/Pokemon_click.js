@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetPokemonByNameQuery } from '../../features/api/pokemonApi';
+import { useGetPokemonByNameQuery } from '../../features/api/pokemonApi/pokemonApi';
 import { InputGroup, Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 

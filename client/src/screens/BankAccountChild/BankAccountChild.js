@@ -7,7 +7,7 @@ import {
     useGetLastTransactionByAccountQuery,
     useGetAllTransactionsByAccountQuery,
     useAddTransactionMutation,
-} from '../../features/api/atHomeApi';
+} from '../../features/api/atHomeApi/slices/bankChildrenSlice.js';
 
 // import axios from 'axios';
 import Screen from '../../components/Screen/Screen';
@@ -149,7 +149,7 @@ function BankAccountChild() {
                         <Row>
                             <Col md={0}></Col>
                             {/* <Col md="auto"> */}
-                            <Col xs={12} md={6} >
+                            <Col xs={12} md={6}>
                                 <Card id={styles.card}>
                                     <Card.Body>
                                         <Card.Title>
@@ -185,47 +185,47 @@ function BankAccountChild() {
                             </Col>
                         </Row>
                         <Row>
-                        <Col>
-                        </Col>
-                        <Col xs={12} md={8}>
-                            <div id={styles.table}>
-                                <Table striped bordered hover>
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>KontoNr / Name</th>
-                                            <th>Typ</th>
-                                            <th>Betrag</th>
-                                            <th>Text</th>
-                                            <th>Kontostand</th>
-                                            <th>Datum Anlage</th>
-                                            {/* <th>User Anlage</th> */}
-                                            {/* <th>Datum Änderung</th> */}
-                                            {/* <th>User Änderung</th> */}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{tran.transaction_id}</td>
-                                            <td>
-                                                {tran.account_id}{' '}
-                                                {tran.account_name}
-                                            </td>
-                                            <td>{tran.type}</td>
-                                            <td>{tran.transaction_value}</td>
-                                            <td>{tran.transaction_text}</td>
-                                            <td>{tran.account_value}</td>
-                                            <td>{tran.date_create}</td>
-                                            {/* <td>{tran.user_create}</td> */}
-                                            {/* <td>{tran.date_change}</td> */}
-                                            {/* <td>{tran.user_change}</td> */}
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </div>
+                            <Col></Col>
+                            <Col xs={12} md={8}>
+                                <div id={styles.table}>
+                                    <Table striped bordered hover>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>KontoNr / Name</th>
+                                                <th>Typ</th>
+                                                <th>Betrag</th>
+                                                <th>Text</th>
+                                                <th>Kontostand</th>
+                                                <th>Datum Anlage</th>
+                                                {/* <th>User Anlage</th> */}
+                                                {/* <th>Datum Änderung</th> */}
+                                                {/* <th>User Änderung</th> */}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{tran.transaction_id}</td>
+                                                <td>
+                                                    {tran.account_id}{' '}
+                                                    {tran.account_name}
+                                                </td>
+                                                <td>{tran.type}</td>
+                                                <td>
+                                                    {tran.transaction_value}
+                                                </td>
+                                                <td>{tran.transaction_text}</td>
+                                                <td>{tran.account_value}</td>
+                                                <td>{tran.date_create}</td>
+                                                {/* <td>{tran.user_create}</td> */}
+                                                {/* <td>{tran.date_change}</td> */}
+                                                {/* <td>{tran.user_change}</td> */}
+                                            </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
                             </Col>
-                            <Col>
-                        </Col>
+                            <Col></Col>
                         </Row>
                     </Container>
                 </section>

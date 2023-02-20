@@ -2,6 +2,9 @@ import React from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import styles from './Header.module.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+
 function Header() {
     return (
         <header>
@@ -103,8 +106,11 @@ function Header() {
                             title='Entwicklung'
                             id='collasible-nav-dropdown'
                         >
-                            <NavDropdown.Item href='/dev/bankkonto-kinder/1'>
-                                Kontostand Kind Test
+                            <NavDropdown.Item href='/dev/testpage/'>
+                                Testseite
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href='/dev/worldcup/'>
+                                Weltmeisterschaft
                             </NavDropdown.Item>
                             <NavDropdown.Item href='/dev/test/json-server'>
                                 Todo-Liste Json Server
@@ -112,8 +118,11 @@ function Header() {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <NavDropdown title='Konto' id='collasible-nav-dropdown'>
-                            <NavDropdown.Item href='/dummy'>
+                        <NavDropdown
+                            title={<span><FontAwesomeIcon icon={solid('user')} /> Konto</span>}
+                            id='collasible-nav-dropdown'
+                        >
+                            <NavDropdown.Item href='/login'>
                                 Einloggen
                             </NavDropdown.Item>
                             <NavDropdown.Item href='/dummy'>
